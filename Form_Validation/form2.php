@@ -102,7 +102,7 @@
     <div class="container">
         <h2>Enter Your Details in the Form Below</h2>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>">
-        <p><span>* Required!</span></p>
+        <p><span>* Required</span></p>
             First Name<input type="text" name="fname">
             <span><?php echo "* ".$error?></span>
             Last Name <input type="text" name="lname">
