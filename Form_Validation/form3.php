@@ -77,6 +77,8 @@
     <?php
     $fname = $lname = $stdid = $address = $city = $phone = $cons =$gdate = "";
     $error = "";
+    $studentval = [];
+    
     if($_SERVER["REQUEST_METHOD"] == 'POST')
     {
         if(empty($_POST['fname'] && $_POST['lname'] && $_POST['stdid']))
@@ -94,15 +96,30 @@
             $major = test($_POST['major']);
             $cons = test($_POST['cons']);
             $gdate = test($_POST['gdate']);
+        
+            
+            $studentval [] =[
+                'fname' => $fname,
+                'lname' => $lname,
+                'stdid' => $stdid,
+                'address' => $address,
+                'city' => $city,
+                'phone' => $phone,
+                'major' => $major,
+                'cons' => $cons,
+                'gdate' => $gdate,
+            ];   
         }
     }
-    function test($data)
+    function test($val)
     {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+        $val = trim($val);
+        $val = stripslashes($val);
+        $val = htmlspecialchars($val);
+        return $val;
     }
+    
+
     ?>
     <div class="container">
         <h2>Enter the details Below</h2>
@@ -149,18 +166,21 @@
                 <th>Concentration</th>
                 <th>Graduation Date</th>
             </tr>
+            <?php foreach($studentval as $val): ?>
             <tr>
-                <td><?php echo $fname?></td>
-                <td><?php echo $lname?></td>
-                <td><?php echo $stdid?></td>
-                <td><?php echo $address?></td>
-                <td><?php echo $city?></td>
-                <td><?php echo $phone?></td>
-                <td><?php echo $major?></td>
-                <td><?php echo $cons?></td>
-                <td><?php echo $gdate?></td>
                 
+                <td><?php echo $val['fname']?></td>
+                    <td><?php echo $val['lname']?></td>
+                    <td><?php echo $val['stdid']?></td>
+                    <td><?php echo $val['address']?></td>
+                    <td><?php echo $val['city']?></td>
+                    <td><?php echo $val['phone']?></td>
+                    <td><?php echo $val['major']?></td>
+                    <td><?php echo $val['cons']?></td>
+                    <td><?php echo $val['gdate']?></td>
+                    
             </tr>
+            <?php endforeach; ?>
         </table>
     </div>
 </body>
