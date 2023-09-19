@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Re2quired Validation!</title>
+    <title>Re2quired dataidation!</title>
     <style>
         .container{
             height: 70%;
@@ -77,11 +77,11 @@
     <?php
     $fname = $lname = $stdid = $address = $city = $phone = $cons =$gdate = "";
     $error = "";
-    $studentval = [];
+    $studentdata = [];
     
     if($_SERVER["REQUEST_METHOD"] == 'POST')
     {
-        if(empty($_POST['fname'] && $_POST['lname'] && $_POST['stdid']))
+        if(empty($_POST['fname'] || $_POST['lname'] || $_POST['stdid']))
         {
             $error = "Please fill this field!";
         }
@@ -98,7 +98,7 @@
             $gdate = test($_POST['gdate']);
         
             
-            $studentval [] =[
+            $studentdata [] =[
                 'fname' => $fname,
                 'lname' => $lname,
                 'stdid' => $stdid,
@@ -111,12 +111,12 @@
             ];   
         }
     }
-    function test($val)
+    function test($data)
     {
-        $val = trim($val);
-        $val = stripslashes($val);
-        $val = htmlspecialchars($val);
-        return $val;
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
     
 
@@ -166,21 +166,22 @@
                 <th>Concentration</th>
                 <th>Graduation Date</th>
             </tr>
-            <?php foreach($studentval as $val): ?>
-            <tr>
-                
-                <td><?php echo $val['fname']?></td>
-                    <td><?php echo $val['lname']?></td>
-                    <td><?php echo $val['stdid']?></td>
-                    <td><?php echo $val['address']?></td>
-                    <td><?php echo $val['city']?></td>
-                    <td><?php echo $val['phone']?></td>
-                    <td><?php echo $val['major']?></td>
-                    <td><?php echo $val['cons']?></td>
-                    <td><?php echo $val['gdate']?></td>
-                    
-            </tr>
-            <?php endforeach; ?>
+            <?php 
+            foreach($studentdata as $data)
+            {
+                echo "<tr>
+                <td>" . $data['fname'] . "</td>
+                <td>" . $data['lname'] . "</td>
+                <td>" . $data['stdid'] . "</td>
+                <td>" . $data['address'] . "</td>
+                <td>" . $data['city'] . "</td>
+                <td>" . $data['phone'] . "</td>
+                <td>" . $data['major'] . "</td>
+                <td>" . $data['cons'] . "</td>
+                <td>" . $data['gdate'] . "</td>
+                </tr>";
+            }
+            ?>
         </table>
     </div>
 </body>
